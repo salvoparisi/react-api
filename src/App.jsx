@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [list, setList] = useState({});
+  const [list, setList] = useState([]);
   const [formData, setFormData] = useState({
     image: "",
     title: "",
@@ -12,14 +12,14 @@ function App() {
     tags: "",
   });
 
-  function fetchData(url = 'https://rickandmortyapi.com/api/character') {
-    fetch(url)
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data);
-        setList(data)
-      })
-  }
+  const apiUrl = "http://localhost:3000";
+
+  const fetchData = () => {
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => setList(data))
+      .catch((error) => console.error("Errore nel fetch:", error));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,6 +57,10 @@ function App() {
   const handleDelete = (indexToDelete) => {
     setList(list.filter((i, index) => index !== indexToDelete));
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
