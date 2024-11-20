@@ -12,13 +12,13 @@ function App() {
     tags: "",
   });
 
-  const apiUrl = "http://localhost:3000";
+  const url = "http://localhost:3000";
 
   const fetchData = () => {
-    fetch(apiUrl)
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setList(data))
-      .catch((error) => console.error("Errore nel fetch:", error));
+      .catch((error) => console.error("Errore 404", error));
   };
 
   const handleChange = (e) => {
