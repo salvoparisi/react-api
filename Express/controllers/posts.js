@@ -1,65 +1,62 @@
-const fs = require('fs');
-const path = require('path');
-const dbPath = path.join(__dirname, '../db.js');
 
-const getPosts = () => {
-    return JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-};
 
-const savePosts = (posts) => {
-    fs.writeFileSync(dbPath, JSON.stringify(posts, null, 4));
-};
-
+const posts = require('../db.js')
+const fs = require('fs')
 
 const show = (req, res) => {
-    const posts = getPosts();
-    res.json(posts);
-};
+    res.json(posts)
+}
 
 const store = (req, res) => {
-    const posts = getPosts();
-    const newPost = {
-        id: req.body.id,
-        nome: req.body.nome,
-        eta: req.body.eta,
-        colore: req.body.colore,
-    };
+    let newPost = {}
+    newPost.id = req.body.id;
+    newPost.nome = req.body.nome
+    newPost.eta = req.body.eta
+    newPost.colore = req.body.colore
 
     posts.push(newPost);
-    savePosts(posts);
+
+    fs.writeFileSync('./db.js', `const posts=${JSON.stringify(posts, null, 4)};\nmodule.exports = posts;`)
+
     res.json(posts);
-};
+}
 
 const update = (req, res) => {
-    const posts = getPosts();
-    const postIndex = posts.findIndex((post) => post.id === req.params.id);
+    const post = posts.find(post => post.id === req.params.id)
 
-    if (postIndex === -1) {
-        return res.status(404).json({ error: `No post found with the id: ${req.params.id}` });
+    if (!post) {
+        res.status(404).json({
+            error: `No post found with the id: ${req.params.id}`
+        })
     }
 
-    posts[postIndex] = {
-        id: req.body.id,
-        nome: req.body.nome,
-        eta: req.body.eta,
-        colore: req.body.colore,
-    };
+    post.id = req.body.id
+    post.nome = req.body.nome
+    post.eta = req.body.eta
+    post.colore = req.body.colore
 
-    savePosts(posts);
-    res.json(posts);
-};
+    fs.writeFileSync('./db.js', `const posts=${JSON.stringify(posts, null, 4)};\nmodule.exports = posts;`)
+    res.json(posts)
+}
 
 const destroy = (req, res) => {
-    const posts = getPosts();
-    const newPosts = posts.filter((post) => post.id !== req.params.id);
+    const postDelete = posts.find(post => post.id === req.params.id)
 
-    savePosts(newPosts);
-    res.json(newPosts);
-};
+    if (!post) {
+        res.status(404).json({
+            error: `No post found with the id: ${req.params.id}`
+        })
+    }
+
+    const newPosts = posts.filter(post => post !== postDelete)
+
+    fs.writeFileSync('./db.js', `const posts=${JSON.stringify(newPosts, null, 4)};\nmodule.exports = posts;`)
+    res.json(newPosts)
+}
 
 module.exports = {
     show,
     store,
     update,
-    destroy,
-};
+    destroy
+}

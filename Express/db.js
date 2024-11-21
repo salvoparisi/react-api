@@ -1,4 +1,4 @@
-[
+const posts = [
     {
         "id": "1",
         "image": "https://placehold.co/600x400",
@@ -32,3 +32,4 @@
         "tags": ["Fitness", "Allenamento", "Salute"]
     }
 ]
+module.exports = posts
