@@ -56,11 +56,13 @@ function App() {
 
   const handleDelete = (indexToDelete) => {
 
-    fetch(`http://localhost:3000/0`, {
+    fetch(`${url}/${indexToDelete}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())
       .then((data) => setList(data))
+    console.log(indexToDelete);
+
   };
 
   useEffect(() => {

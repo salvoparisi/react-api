@@ -1,15 +1,11 @@
-const posts = [
+[
     {
         "id": "0",
         "image": "https://placehold.co/600x400",
         "title": "Esplorando le Montagne",
         "description": "Un viaggio attraverso le affascinanti catene montuose con viste mozzafiato e avventure indimenticabili.",
         "category": "Viaggi",
-        "tags": [
-            "Avventura",
-            "Natura",
-            "Escursionismo"
-        ]
+        "tags": ["Avventura", "Natura", "Escursionismo"]
     },
     {
         "id": "1",
@@ -17,11 +13,7 @@ const posts = [
         "title": "Ricette Facili e Veloci",
         "description": "Scopri ricette semplici per preparare piatti deliziosi in pochi minuti.",
         "category": "Cucina",
-        "tags": [
-            "Ricette",
-            "Facile",
-            "Veloce"
-        ]
+        "tags": ["Ricette", "Facile", "Veloce"]
     },
     {
         "id": "2",
@@ -29,11 +21,7 @@ const posts = [
         "title": "Guida alla Programmazione",
         "description": "Una guida completa per imparare le basi della programmazione e sviluppare applicazioni.",
         "category": "Tecnologia",
-        "tags": [
-            "Codice",
-            "Sviluppo",
-            "Programmazione"
-        ]
+        "tags": ["Codice", "Sviluppo", "Programmazione"]
     },
     {
         "id": "3",
@@ -41,11 +29,6 @@ const posts = [
         "title": "Migliora il tuo Fitness",
         "description": "Consigli utili e programmi di allenamento per raggiungere i tuoi obiettivi di fitness.",
         "category": "Salute",
-        "tags": [
-            "Fitness",
-            "Allenamento",
-            "Salute"
-        ]
+        "tags": ["Fitness", "Allenamento", "Salute"]
     }
-];
-module.exports = posts;
+]
