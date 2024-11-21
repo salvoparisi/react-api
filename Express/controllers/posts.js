@@ -20,11 +20,15 @@ const show = (req, res) => {
 
 const store = (req, res) => {
     posts = getPosts();
+    num = posts.length + ""
+
     const newPost = {
-        id: req.body.id,
-        nome: req.body.nome,
-        eta: req.body.eta,
-        colore: req.body.colore,
+        id: num,
+        image: req.body.image,
+        title: req.body.title,
+        description: req.body.description,
+        category: req.body.category,
+        tags: req.body.tags || []
     };
 
     posts.push(newPost);

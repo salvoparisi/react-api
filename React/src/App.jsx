@@ -28,31 +28,51 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      formData.image &&
-      formData.title &&
-      formData.description &&
-      formData.category
-    ) {
 
-      setList([
-        {
-          ...formData,
-          tags: formData.tags.split(',')
+    if (formData.image && formData.title && formData.description && formData.category && formData.tags) {
+      const dataToSend = {
+        image: formData.image,
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        tags: formData.tags.split(",").map(tag => tag.trim())
+      };
+
+      console.log('Dati inviati:', dataToSend);
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        ...list,
-      ]);
+        body: JSON.stringify(dataToSend),
+      })
+        .then((resp) => {
+          if (!resp.ok) {
+            throw new Error("Errore nel POST: " + resp.statusText);
+          }
+          return resp.json();
+        })
+        .then((newItem) => {
+          setList((prevList) => [newItem, ...prevList]);
+
+          setFormData({
+            image: "",
+            title: "",
+            description: "",
+            category: "",
+            tags: "",
+          });
+        })
+        .catch((error) => {
+          console.error("Errore durante il POST:", error);
+          alert("Errore durante l'aggiunta dell'elemento.");
+        });
     } else {
-      alert('Compila tutti i campi per aggiungere un oggetto')
+      alert('Compila tutti i campi per aggiungere un oggetto');
     }
-    setFormData({
-      image: "",
-      title: "",
-      description: "",
-      category: "",
-      tags: "",
-    });
   };
+
 
   const handleDelete = (indexToDelete) => {
 
