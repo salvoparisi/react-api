@@ -51,7 +51,7 @@ const update = (req, res) => {
 
 const destroy = (req, res) => {
     const posts = getPosts();
-    const newPosts = posts.filter((post) => post.id !== req.params.id);
+    const newPosts = posts.filter((post, i) => post.id !== req.params.id);
 
     savePosts(newPosts);
     res.json(newPosts);
