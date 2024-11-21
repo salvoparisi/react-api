@@ -42,7 +42,7 @@ const update = (req, res) => {
 const destroy = (req, res) => {
     const postDelete = posts.find(post => post.id === req.params.id)
 
-    if (!post) {
+    if (!postDelete) {
         res.status(404).json({
             error: `No post found with the id: ${req.params.id}`
         })

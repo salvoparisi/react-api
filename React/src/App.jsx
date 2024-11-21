@@ -55,11 +55,16 @@ function App() {
   };
 
   const handleDelete = (indexToDelete) => {
-    setList(list.filter((i, index) => index !== indexToDelete));
+
+    fetch(`http://localhost:3000/0`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => setList(data))
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData()
   }, []);
 
   return (
