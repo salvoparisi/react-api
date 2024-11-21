@@ -54,9 +54,9 @@ function App() {
     });
   };
 
-  const handleDelete = (idToDelete) => {
+  const handleDelete = (indexToDelete) => {
 
-    fetch(`${url}/${idToDelete}`, {
+    fetch(`${url}/${indexToDelete}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())
@@ -131,7 +131,7 @@ function App() {
             <div key={index} className="max-w position-relative border p-3">
               <button
                 className="btn btn-danger position-absolute end-0 top-0 m-1"
-                onClick={() => handleDelete(list[index].id)}
+                onClick={() => handleDelete(obj.id)}
               >
                 Delete
               </button>

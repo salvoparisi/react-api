@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const dbPath = path.join(__dirname, '../db.js');
 
+let posts = []
+
 const getPosts = () => {
     return JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 };
@@ -12,12 +14,12 @@ const savePosts = (posts) => {
 
 
 const show = (req, res) => {
-    const posts = getPosts();
+    posts = getPosts();
     res.json(posts);
 };
 
 const store = (req, res) => {
-    const posts = getPosts();
+    posts = getPosts();
     const newPost = {
         id: req.body.id,
         nome: req.body.nome,
@@ -31,7 +33,7 @@ const store = (req, res) => {
 };
 
 const update = (req, res) => {
-    const posts = getPosts();
+    posts = getPosts();
     const postIndex = posts.findIndex((post) => post.id === req.params.id);
 
     if (postIndex === -1) {
