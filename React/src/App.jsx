@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Forms from './components/Forms.jsx'
 
 function App() {
   const [list, setList] = useState([]);
-  const [formData, setFormData] = useState({
-    image: "",
-    title: "",
-    description: "",
-    category: "",
-    tags: "",
-  });
 
   const url = "http://localhost:3000";
 
@@ -20,60 +14,6 @@ function App() {
       .then((data) => setList(data))
       .catch((error) => console.error("Errore 404", error));
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.image && formData.title && formData.description && formData.category && formData.tags) {
-      const dataToSend = {
-        image: formData.image,
-        title: formData.title,
-        description: formData.description,
-        category: formData.category,
-        tags: formData.tags.split(",")
-      };
-
-      console.log('Dati inviati:', dataToSend);
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend),
-      })
-        .then((resp) => {
-          if (!resp.ok) {
-            throw new Error("Errore nel POST: " + resp.statusText);
-          }
-          return resp.json();
-        })
-        .then((data) => {
-
-          setList(data)
-
-          setFormData({
-            image: "",
-            title: "",
-            description: "",
-            category: "",
-            tags: "",
-          });
-        })
-        .catch((error) => {
-          console.error("Errore durante il POST:", error);
-          alert("Errore durante l'aggiunta dell'elemento.");
-        });
-    } else {
-      alert('Compila tutti i campi per aggiungere un oggetto');
-    }
-  };
-
 
   const handleDelete = (indexToDelete) => {
 
@@ -86,6 +26,10 @@ function App() {
 
   };
 
+  const addToList = (newItem) => {
+    setList(newItem);
+  };
+
   useEffect(() => {
     fetchData()
   }, []);
@@ -94,58 +38,7 @@ function App() {
     <>
       <div className="container">
         <h1>To Do List</h1>
-        <form onSubmit={handleSubmit} className="mb-4">
-          <div className="mb-2">
-            <input
-              type="text"
-              className="form-control"
-              name="image"
-              placeholder="URL Immagine"
-              value={formData.image}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-2">
-            <input
-              type="text"
-              className="form-control"
-              name="title"
-              placeholder="Titolo"
-              value={formData.title}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-2">
-            <textarea
-              className="form-control"
-              name="description"
-              placeholder="Descrizione"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-2">
-            <input
-              type="text"
-              className="form-control"
-              name="category"
-              placeholder="Categoria"
-              value={formData.category}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-2">
-            <input
-              type="text"
-              className="form-control"
-              name="tags"
-              placeholder="Tag (separati da virgola)"
-              value={formData.tags}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">Aggiungi</button>
-        </form>
+        <Forms addToList={addToList} url={url} />
 
         <div className="d-flex flex-wrap justify-content-between">
           {list.map((obj, index) => (
