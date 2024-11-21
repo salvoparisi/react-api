@@ -35,7 +35,7 @@ function App() {
         title: formData.title,
         description: formData.description,
         category: formData.category,
-        tags: formData.tags.split(",").map(tag => tag.trim())
+        tags: formData.tags.split(",")
       };
 
       console.log('Dati inviati:', dataToSend);
@@ -54,7 +54,8 @@ function App() {
           return resp.json();
         })
         .then((newItem) => {
-          setList((prevList) => [newItem, ...prevList]);
+
+          setList(newItem)
 
           setFormData({
             image: "",

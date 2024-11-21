@@ -46,25 +46,5 @@
             "Allenamento",
             "Salute"
         ]
-    },
-    {
-        "id": "4",
-        "image": "dsa",
-        "title": "dsa",
-        "description": "dsa",
-        "category": "dsa",
-        "tags": [
-            "dsa"
-        ]
-    },
-    {
-        "id": "5",
-        "image": "dsa",
-        "title": "dsa",
-        "description": "das",
-        "category": "das",
-        "tags": [
-            "dsa"
-        ]
     }
 ]
