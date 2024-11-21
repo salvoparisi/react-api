@@ -53,9 +53,9 @@ function App() {
           }
           return resp.json();
         })
-        .then((newItem) => {
+        .then((data) => {
 
-          setList(newItem)
+          setList(data)
 
           setFormData({
             image: "",

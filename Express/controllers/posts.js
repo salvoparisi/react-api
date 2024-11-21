@@ -31,7 +31,8 @@ const store = (req, res) => {
         tags: req.body.tags || []
     };
 
-    posts.push(newPost);
+    posts.unshift(newPost);
+
     savePosts(posts);
     res.json(posts);
 };
